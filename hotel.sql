@@ -10,8 +10,7 @@ CREATE TABLE soba(
     broj_kreveta INT NOT NULL,
     velicina_kreveta VARCHAR(10),
     cijena_nocenja DECIMAL(18,2),
-    zauzeta BOOLEAN,
-    gost INT
+    zauzeta BOOLEAN
 );
 
 CREATE TABLE gost(
@@ -21,8 +20,7 @@ CREATE TABLE gost(
     datum_rodenja DATETIME NOT NULL,
     drzava VARCHAR(50) NOT NULL,
     oib CHAR(11),
-    broj_putovnice VARCHAR(50),
-    soba INT NOT NULL
+    broj_putovnice VARCHAR(50)
 );
 
 CREATE TABLE nocenje(
@@ -33,10 +31,6 @@ CREATE TABLE nocenje(
     datum_odjave DATETIME,
     cijena_ukupno DECIMAL(18,2)
 );
-
-ALTER TABLE soba ADD FOREIGN KEY (gost) REFERENCES gost(sifra);
-
-ALTER TABLE gost ADD FOREIGN KEY (soba) REFERENCES soba(sifra);
 
 ALTER TABLE nocenje ADD FOREIGN KEY (gost) REFERENCES gost(sifra);
 ALTER TABLE nocenje ADD FOREIGN KEY (soba) REFERENCES soba(sifra);
