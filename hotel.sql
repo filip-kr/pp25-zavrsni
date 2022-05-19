@@ -8,9 +8,8 @@ CREATE TABLE soba(
     sifra INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     broj INT NOT NULL,
     broj_kreveta INT NOT NULL,
-    velicina_kreveta VARCHAR(10),
-    cijena_nocenja DECIMAL(18,2),
-    zauzeta BOOLEAN
+    opis TEXT,
+    cijena_nocenja DECIMAL(18,2)
 );
 
 CREATE TABLE gost(
@@ -23,14 +22,21 @@ CREATE TABLE gost(
     broj_putovnice VARCHAR(50)
 );
 
-CREATE TABLE nocenje(
+CREATE TABLE rezervacija(
     sifra INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     gost INT NOT NULL,
-    soba INT NOT NULL,
+    nocenje INT NOT NULL,
     datum_prijave DATETIME NOT NULL,
-    datum_odjave DATETIME,
+    datum_odjave DATETIME
+);
+
+CREATE TABLE nocenje(
+    sifra INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    soba INT NOT NULL,
     cijena_ukupno DECIMAL(18,2)
 );
 
-ALTER TABLE nocenje ADD FOREIGN KEY (gost) REFERENCES gost(sifra);
+ALTER TABLE rezervacija ADD FOREIGN KEY (gost) REFERENCES gost(sifra);
+ALTER TABLE rezervacija ADD FOREIGN KEY (nocenje) REFERENCES nocenje(sifra);
+
 ALTER TABLE nocenje ADD FOREIGN KEY (soba) REFERENCES soba(sifra);
